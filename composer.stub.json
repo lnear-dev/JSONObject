@@ -1,0 +1,39 @@
+{
+  "name": "lnear/:package_name",
+  "description": ":package_description",
+  "keywords": ["php", ":package_name"],
+  "license": "MIT",
+  "homepage": "https://github.com/lnear-dev/:package_name",
+  "authors": [
+    {
+      "name": "Lanre Ajao",
+      "homepage": "https://github.com/lnear-dev",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Lame\\:package_namespace\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Lame\\:package_namespace\\Test\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/pest --coverage"
+  },
+  "require-dev": {
+    "pestphp/pest": "^3.0",
+    "phpunit/phpunit": "^11.0"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable"
+}
