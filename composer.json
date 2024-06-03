@@ -1,9 +1,12 @@
 {
-  "name": "lnear/:package_name",
-  "description": ":package_description",
-  "keywords": ["php", ":package_name"],
+  "name": "lnear/json",
+  "description": "Lightweight JSON wrapper for PHP",
+  "keywords": [
+    "php",
+    "json"
+  ],
   "license": "MIT",
-  "homepage": "https://github.com/lnear-dev/:package_name",
+  "homepage": "https://github.com/lnear-dev/JSONObject",
   "authors": [
     {
       "name": "Lanre Ajao",
@@ -16,12 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Lame\\:package_namespace\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Lame\\:package_namespace\\Test\\": "tests"
+      "Lame\\": "src/"
     }
   },
   "scripts": {
@@ -33,7 +31,10 @@
     "phpunit/phpunit": "^11.0"
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "dev"
 }

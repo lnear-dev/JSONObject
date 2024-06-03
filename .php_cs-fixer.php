@@ -20,9 +20,9 @@ return (new PhpCsFixer\Config())
             (|..'__.||..|\....|..|...--'(|...-...||.......'
             .|.....|'|..|.\...|..|..`---.|..|.|..||..|\..\.
             .`-----'.`--'..`--'..`------'`--'.`--'`--'.'--'
-            @link     https://github.com/lnear-dev/:package_name
-            @licence  https://github.com/lnear-dev/:package_name/blob/main/LICENSE
-            @document https://docs.lnear.dev/:package_name
+            @link     https://github.com/lnear-dev/JSONObject
+            @licence  https://github.com/lnear-dev/JSONObject/blob/main/LICENSE
+            @document https://docs.lnear.dev/json
             @contact  hi@lnear.dev
             EOF,
             'separate'     => 'none',
@@ -130,9 +130,7 @@ return (new PhpCsFixer\Config())
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
-            ->exclude('bin')
             ->exclude('vendor')
-            ->in(__DIR__ . '/php')
-            ->in(__DIR__ . '/php-tests'),
+            ->in(__DIR__ . '/src'),
     )
     ->setUsingCache(false);
