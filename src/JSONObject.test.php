@@ -25,7 +25,7 @@ use InvalidArgumentException;
 use Lame\JSONObject;
 
 beforeEach(function (): void {
-    $this->jsonObject = new class('{"name": "John", "age": 30}', ['name' => 'John', 'age' => 30]) extends JSONObject {
+    $this->jsonObject = new class ('{"name": "John", "age": 30}', ['name' => 'John', 'age' => 30]) extends JSONObject {
         public function __construct(string $source, ?array $values = null)
         {
             $this->rawData = $source;

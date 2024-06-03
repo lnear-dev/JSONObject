@@ -33,7 +33,7 @@ class JSONString extends JSONObject
     public function __construct(string $source, ?array $values = null)
     {
         $this->rawData = $source;
-        $this->data = $values ?? $this->load();
+        $this->data    = $values ?? $this->load();
     }
 
     public static function make(mixed $data): self
@@ -51,7 +51,7 @@ class JSONString extends JSONObject
     {
         try {
             return json_decode($this->rawData, true, 512, JSON_THROW_ON_ERROR);
-        } catch (InvalidArgumentException|JsonException $e) {
+        } catch (InvalidArgumentException | JsonException $e) {
             throw new RuntimeException('Failed to load data from JSON string: ' . $e->getMessage());
         }
     }

@@ -61,8 +61,8 @@ abstract class JSONObject implements ArrayAccess, Countable
     public function push(string $name, mixed $pushValue): static
     {
         $pushValue = (array) $pushValue;
-        $oldValue = $this->get($name, []);
-        if (! is_array($oldValue)) {
+        $oldValue  = $this->get($name, []);
+        if (!is_array($oldValue)) {
             $oldValue = [$oldValue];
         }
         return $this->put($name, array_merge($oldValue, $pushValue));
@@ -71,9 +71,9 @@ abstract class JSONObject implements ArrayAccess, Countable
     public function prepend(string $name, mixed $prependValue): static
     {
         $prependValue = (array) $prependValue;
-        $oldValue = $this->get($name, []);
+        $oldValue     = $this->get($name, []);
 
-        if (! is_array($oldValue)) {
+        if (!is_array($oldValue)) {
             $oldValue = [$oldValue];
         }
 
@@ -137,7 +137,7 @@ abstract class JSONObject implements ArrayAccess, Countable
     {
         $currentValue = $this->get($name, 0);
 
-        if (! $this->isNumber($currentValue)) {
+        if (!$this->isNumber($currentValue)) {
             throw new InvalidArgumentException("The value for '{$name}' is not a number.");
         }
 
@@ -179,16 +179,83 @@ abstract class JSONObject implements ArrayAccess, Countable
 
     protected static function keysStartingWith(array $values, string $startsWith): array
     {
-        return array_filter($values, fn ($key) => str_starts_with($key, $startsWith), ARRAY_FILTER_USE_KEY);
+        return array_filter($values, fn($key) => str_starts_with($key, $startsWith), ARRAY_FILTER_USE_KEY);
     }
 
     protected static function keysNotStartingWith(array $values, string $startsWith): array
     {
-        return array_filter($values, fn ($key) => ! str_starts_with($key, $startsWith), ARRAY_FILTER_USE_KEY);
+        return array_filter($values, fn($key) => !str_starts_with($key, $startsWith), ARRAY_FILTER_USE_KEY);
     }
 
     protected function isNumber($value): bool
     {
         return is_int($value) || is_float($value);
     }
+    public function each(callable $callback): static
+    {
+        foreach ($this->data as $key => $value)
+            $callback($key, $value);
+
+
+        return $this;
+    }
+
+    public function map(callable $callback): static
+    {
+        $this->data = array_map($callback, $this->data);
+
+        return $this;
+    }
+
+    public function filter(callable $callback): static
+    {
+        $this->data = array_filter($this->data, $callback, ARRAY_FILTER_USE_BOTH);
+
+        return $this;
+    }
+
+    public function reduce(callable $callback, mixed $initial = null): mixed
+    {
+        return array_reduce($this->data, $callback, $initial);
+    }
+
+    public function sort(callable $callback): static
+    {
+        uasort($this->data, $callback);
+
+        return $this;
+    }
+
+    public function reverse(): static
+    {
+        $this->data = array_reverse($this->data);
+
+        return $this;
+    }
+
+    public function keys(): array
+    {
+        return array_keys($this->data);
+    }
+
+    public function values(): array
+    {
+        return array_values($this->data);
+    }
+
+    public function toJson(int $options = JSON_THROW_ON_ERROR): string
+    {
+        return json_encode($this->data, $options);
+    }
+
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
+
+    public function __debugInfo(): array
+    {
+        return $this->data;
+    }
+
 }
