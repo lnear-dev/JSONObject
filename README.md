@@ -25,34 +25,42 @@ composer require lnear/json
 ### Basic Usage
 
 ```php
-use Lame\JSONObject;
+use Lame\JSONFile;
 
-class MyJSONObject extends JSONObject
-{
-    public function __construct(string $source, ?array $values = null)
-    {
-        $this->rawData = $source;
-        $this->data = $values ?? json_decode($source, true);
-    }
+// Instantiate JSONFile with a file path
+$jsonFile = new JSONFile('/path/to/file.json');
 
-    public function load(): array
-    {
-        return $this->data;
-    }
+// Access and manipulate JSON data
+$jsonFile->put('key', 'value');
+$jsonFile->save(); // Save changes to the file
 
-    public function save(): void
-    {
-        $this->rawData = json_encode($this->data);
-    }
-}
-
-$jsonString = '{"name": "John", "age": 30}';
-$jsonObject = new MyJSONObject($jsonString);
-
-echo $jsonObject->get('name'); // Outputs: John
-$jsonObject->put('location', 'New York');
-echo $jsonObject->toJson(); // Outputs: {"name":"John","age":30,"location":"New York"}
+// Load JSON data from the file
+$data = $jsonFile->load();
 ```
+
+### JSONString
+
+The `JSONString` class handles JSON data stored as a string. It also extends the `JSONObject` abstract class and provides methods to work with JSON data in string format.
+
+### Usage
+
+```php
+use Lame\JSONString;
+
+// Instantiate JSONString with a JSON string
+$jsonString = new JSONString('{"key": "value"}');
+
+// Access and manipulate JSON data
+$jsonString->put('newKey', 'newValue');
+$jsonString->save(); // Save changes to the JSON string
+
+// Load JSON data from the string
+$data = $jsonString->load();
+```
+
+## Exception Handling
+
+Both classes handle exceptions related to JSON parsing and file operations. They throw appropriate exceptions when errors occur, allowing you to handle them gracefully in your application.
 
 ### ArrayAccess and Countable
 
@@ -111,7 +119,7 @@ If you have any questions or feedback, feel free to reach out at [hi@lnear.dev](
 
 ## Security
 
-If you discover any security related issues, please email alex@renoki.org instead of using the issue tracker.
+If you discover any security related issues, please email hi@lnear.dev instead of using the issue tracker.
 
 ## Credits
 
